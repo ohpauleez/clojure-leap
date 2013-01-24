@@ -14,6 +14,7 @@ pom.xml
 .lein-deps-sum
 .lein-failures
 .lein-cljsbuild-repl
+.lein-repl-history
 /.lein-plugins
 repl-port
 
