@@ -1,0 +1,19 @@
+# Notice
+This is very much a work in progress, as I interact and develop more with the Leap Motion
+
+Docs will be written once the code stablized.
+There is currently no release in Clojars.
+
+# clojure_leap
+
+A Clojure library designed to ... well, that part is up to you.
+
+## Usage
+
+FIXME
+
+## License
+
+Copyright © 2013 Paul deGrandis
+
+Distributed under the Eclipse Public License, the same as Clojure.
