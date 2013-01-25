@@ -97,13 +97,17 @@
   [handlers]
   (proxy [Listener] []
     (onInit [controller]
-      ((:init handlers (:default handlers identity)) (l-controller/controller-map controller)))
+      ((:init handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+                                                            :state :init)))
     (onConnect [controller]
-      ((:connect handlers (:default handlers identity)) (l-controller/controller-map controller)))
+      ((:connect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+                                                               :state :connect)))
     (onDisconnect [controller]
-      ((:disconnect handlers (:default handlers identity)) (l-controller/controller-map controller)))
+      ((:disconnect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+                                                                  :state :disconnect)))
     (onExit [controller]
-      ((:exit handlers (:default handlers identity)) (l-controller/controller-map controller)))
+      ((:exit handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+                                                            :state :exit)))
     (onFrame [controller]
       ((:frame handlers (:default handlers identity)) (l-controller/controller-map controller)))))
 

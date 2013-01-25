@@ -23,5 +23,6 @@
 (defn controller-map [^Controller controller]
   {:controller controller
    :frame (.frame controller)
-   :screens (screens controller)})
+   :screens (screens controller)
+   :state :frame})
 
