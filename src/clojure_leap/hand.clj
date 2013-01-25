@@ -69,10 +69,14 @@
     (when (.isValid pointable)
       pointable)))
 
+(defn direction [^Hand hand]
+  (.direction hand))
+
 (defn palm [^Hand hand]
   {:normal (.palmNormal hand) ; The vector outward/orthog
    :position (.palmPosition hand) ; The center of the palm
-   :velocity (.palmVelocity hand)})
+   :velocity (.palmVelocity hand)
+   :direction (.direction hand)})
 
 (defn sphere [^Hand hand]
   {:center (.sphereCenter hand)
