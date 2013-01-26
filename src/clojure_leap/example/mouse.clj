@@ -2,8 +2,7 @@
   (:require [clojure-leap.core :as leap]
             [clojure-leap.screen :as l-screen]
             [clojure-leap.vector :as v :refer [x y]]
-            [clojure-leap.gestures :as gestures]
-            [clojure-leap.pointable :as l-pointable :refer [tip-position]])
+            [clojure-leap.gestures :as gestures])
   (:import (java.awt Robot)))
 
 (def active? (atom true)) ;; Should we be reacting to the leap?
