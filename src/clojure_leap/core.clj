@@ -1,4 +1,5 @@
 (ns clojure-leap.core
+  (:refer-clojure :exclude [empty? count vector?])
   (:require [clojure-leap.controller :as l-controller]
             [clojure-leap.frame :as l-frame]
             [clojure-leap.pointable :as l-pointable]
@@ -9,7 +10,8 @@
   (:import (com.leapmotion.leap Controller
                                 Listener
                                 Frame
-                                Hand Finger Tool Pointable)))
+                                Hand Finger Tool Pointable
+                                Vector)))
 
 
 ;; Predicates
@@ -37,6 +39,9 @@
   (or (instance? Tool potential-tool)
       (and (pointable? potential-tool) (l-pointable/tool? potential-tool))))
 
+(defn vector? [potential-vector]
+  (instance? Vector potential-vector))
+
 (def valid? l-protocols/valid?)
 
 
@@ -47,6 +52,8 @@
     (controller? t) (l-controller/frame t history-count)
     (pointable? t)  (l-pointable/frame t)
     (hand? t)       (l-hand/frame t)))
+
+(def frames l-controller/frames)
 
 ;; Hands
 ;;;;;;;;;;;
@@ -85,6 +92,11 @@
 (def raw-pointable l-protocols/raw-pointable)
 (def pointable l-protocols/pointable)
 
+;; Leap *Lists
+;;;;;;;;;;;;;;;
+(def empty? l-protocols/empty?)
+(def count l-protocols/count)
+
 
 ;; Listeners and Controllers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -97,19 +109,19 @@
   [handlers]
   (proxy [Listener] []
     (onInit [controller]
-      ((:init handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+      ((:init handlers (:default handlers identity)) (assoc (l-controller/controller-map controller this)
                                                             :state :init)))
     (onConnect [controller]
-      ((:connect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+      ((:connect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller this)
                                                                :state :connect)))
     (onDisconnect [controller]
-      ((:disconnect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+      ((:disconnect handlers (:default handlers identity)) (assoc (l-controller/controller-map controller this)
                                                                   :state :disconnect)))
     (onExit [controller]
-      ((:exit handlers (:default handlers identity)) (assoc (l-controller/controller-map controller)
+      ((:exit handlers (:default handlers identity)) (assoc (l-controller/controller-map controller this)
                                                             :state :exit)))
     (onFrame [controller]
-      ((:frame handlers (:default handlers identity)) (l-controller/controller-map controller)))))
+      ((:frame handlers (:default handlers identity)) (l-controller/controller-map controller this)))))
 
 (defn listener [& on-actions]
   (let [handlers (apply hash-map on-actions)]
@@ -145,31 +157,6 @@
     (when (seq listener-objs)
       (attach-listeners! controller listener-objs))
     [controller listener-objs]))
-
-(defn short-main []
-  ;; Attaching listeners this way causes a core dump
-  (let [[auto-controller l-obs] (controller {:frame (fn [cont-map] (println "Got a new frame from the controller:" (:controller cont-map)))})]
-    (println "Any key to quit")
-    (read-line)))
-
-(defn long-main []
-  (let [[simple-controller _] (controller)
-        simple-listener (listener :frame (fn [{:keys [controller] :as cont-map}] (println "Got a new frame from the controller:" controller)))]
-    (add-listener! simple-controller simple-listener)
-    (println "Any key to quit")
-    (read-line)
-    (remove-listener! simple-controller simple-listener)))
-
-(defn medium-main []
-  (let [simple-listener (listener :frame (fn [{:keys [frame]}] (println "Got a new frame:" frame)))
-        [simple-controller all-listeners] (controller simple-listener)]
-    (println "Any key to quit")
-    (read-line)
-    (doseq [l all-listeners]
-      (remove-listener! simple-controller l))))
-
-(defn -main [& args]
-  (medium-main))
 
 (comment
  
