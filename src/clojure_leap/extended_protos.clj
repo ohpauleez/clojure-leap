@@ -2,12 +2,17 @@
   (:require [clojure-leap.protocols :as l-protocols]
             [clojure-leap.frame :as l-frame]
             [clojure-leap.hand :as l-hand]
+            [clojure-leap.finger :as l-finger]
+            [clojure-leap.tool :as l-tool]
             [clojure-leap.pointable :as l-pointable]
-            [clojure-leap.screen :as l-screen])
+            [clojure-leap.screen :as l-screen]
+            [clojure-leap.vector :as l-vector])
   (:import (com.leapmotion.leap Frame
-                                Hand
-                                Pointable
-                                Screen)))
+                                Hand HandList
+                                Pointable PointableList
+                                FingerList ToolList
+                                Screen
+                                Vector)))
 
 ;; All clojure-leap/protocols are extended in this file.
 ;; The use of protocols allows the consumer to choose between
@@ -93,4 +98,24 @@
   l-protocols/EntityValidity
   (valid? [t]
     (l-screen/valid? t)))
+
+(extend-type Vector
+  l-protocols/EntityValidity
+  (valid? [t]
+    (l-vector/valid? t)))
+
+(extend-type HandList
+  l-protocols/LeapList
+  (count [t] (l-hand/count t))
+  (empty? [t] (l-hand/empty? t)))
+
+(extend-type FingerList
+  l-protocols/LeapList
+  (count [t] (l-finger/count t))
+  (empty? [t] (l-finger/empty? t)))
+
+(extend-type ToolList
+  l-protocols/LeapList
+  (count [t] (l-tool/count t))
+  (empty? [t] (l-tool/empty? t)))
 
