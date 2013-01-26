@@ -1,5 +1,5 @@
 (ns clojure-leap.hand
-  (:refer-clojure :exclude [empty?])
+  (:refer-clojure :exclude [empty? count])
   (:import (com.leapmotion.leap Hand HandList
                                 Finger FingerList
                                 Tool ToolList
@@ -9,8 +9,12 @@
 ;; Hand List
 ;;;;;;;;;;;;;
 ;;    We won't support IFn lookup, but it should work with `nth`
+(defn count [^HandList hand-list]
+  (.count hand-list))
+
 (defn empty? [^HandList hand-list]
   (.empty hand-list))
+
 
 ;; Hand
 ;;;;;;;;;;;;;
@@ -28,7 +32,7 @@
 (defn fingers?
   "Are there any fingers detected for a given Hand"
   [^Hand hand]
-  (.empty (.fingers hand)))
+  (not (.empty (.fingers hand))))
 
 (defn ^Finger raw-finger [^Hand hand finger-id]
   (.finger hand finger-id))
@@ -43,7 +47,7 @@
   (.tools hand))
 
 (defn tools? [^Hand hand]
-  (.empty (.tools hand)))
+  (not (.empty (.tools hand))))
 
 (defn ^Tool raw-tool [^Hand hand tool-id]
   (.tool hand tool-id))
@@ -58,7 +62,7 @@
   (.pointables hand))
 
 (defn pointables? [^Hand hand]
-  (.empty (.pointables hand)))
+  (not (.empty (.pointables hand))))
 
 (defn ^Pointable raw-pointable [^Hand hand pointable-id]
   (.pointable hand pointable-id))

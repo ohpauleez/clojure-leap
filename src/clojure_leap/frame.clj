@@ -10,14 +10,15 @@
   (.hands frame))
  
 (defn hands? [^Frame frame]
-  (.empty (.hands frame)))
+  (not (.empty (.hands frame))))
 
 (defn ^Hand raw-hand [^Frame frame hand-id]
   (.hand frame hand-id))
 
 (defn hand [^Frame frame hand-id]
   {:pre [(integer? hand-id)]}
-  (let [hand (.hand frame hand-id)]
+  (let [hand (.hand frame hand-id)
+        _ (println "Frame's hand" hand)]
     (when (.isValid hand)
       hand)))
 
@@ -29,7 +30,7 @@
 (defn fingers?
   "Are there any fingers detected for a given Frame"
   [^Frame frame]
-  (.empty (.fingers frame)))
+  (not (.empty (.fingers frame))))
 
 (defn ^Finger raw-finger [^Frame frame finger-id]
   (.finger frame finger-id))
@@ -44,7 +45,7 @@
   (.tools frame))
 
 (defn tools? [^Frame frame]
-  (.empty (.tools frame)))
+  (not (.empty (.tools frame))))
 
 (defn ^Tool raw-tool [^Frame frame tool-id]
   (.tool frame tool-id))
@@ -59,7 +60,7 @@
   (.pointables frame))
 
 (defn pointables? [^Frame frame]
-  (.empty (.pointables frame)))
+  (not (.empty (.pointables frame))))
 
 (defn ^Pointable raw-pointable [^Frame frame pointable-id]
   (.pointable frame pointable-id))
