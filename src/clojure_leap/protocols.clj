@@ -1,4 +1,9 @@
-(ns clojure-leap.protocols)
+(ns clojure-leap.protocols
+  (:refer-clojure :exclude [empty? count]))
+
+(defprotocol LeapList
+  (count [t])
+  (empty? [t]))
 
 (defprotocol EntityValidity
   (valid? [t]))
