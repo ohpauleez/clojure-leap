@@ -11,6 +11,7 @@ A Clojure library designed to ... well, that part is up to you.
 ## Usage
 
 FIXME
+See an [example video](http://www.pauldee.org/ClojureLeapMouse.mov) of the mouse demo.
 
 ## TODO
 
