@@ -44,6 +44,22 @@
     (when (.isValid finger)
       finger)))
 
+(defn ^Finger leftmost-finger [^Hand hand]
+  (when (fingers? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (fingers hand))))
+
+(defn ^Finger rightmost-finger [^Hand hand]
+  (when (fingers? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (fingers hand))))
+
+(defn ^Finger highest-finger [^Hand hand]
+  (when (fingers? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (fingers hand))))
+
+(defn ^Finger lowest-finger [^Hand hand]
+  (when (fingers? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (fingers hand))))
+
 (defn ^ToolList tools [^Hand hand]
   (.tools hand))
 
@@ -59,6 +75,22 @@
     (when (.isValid tool)
       tool)))
 
+(defn ^Tool leftmost-tool [^Hand hand]
+  (when (tools? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (tools hand))))
+
+(defn ^Tool rightmost-tool [^Hand hand]
+  (when (tools? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (tools hand))))
+
+(defn ^Tool highest-tool [^Hand hand]
+  (when (tools? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (tools hand))))
+
+(defn ^Tool lowest-tool [^Hand hand]
+  (when (tools? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (tools hand))))
+
 (defn ^PointableList pointables [^Hand hand]
   (.pointables hand))
 
@@ -73,6 +105,22 @@
   (let [pointable (.pointable hand pointable-id)]
     (when (.isValid pointable)
       pointable)))
+
+(defn ^Pointable leftmost-pointable [^Hand hand]
+  (when (pointables? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (pointables hand))))
+
+(defn ^Pointable rightmost-pointable [^Hand hand]
+  (when (pointables? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (pointables hand))))
+
+(defn ^Pointable highest-pointable [^Hand hand]
+  (when (pointables? hand)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (pointables hand))))
+
+(defn ^Pointable lowest-pointable [^Hand hand]
+  (when (pointables? hand)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (pointables hand))))
 
 (defn fist?
   "Are we detecting a possible fist? - a hand with no fingers/tools/pointables"

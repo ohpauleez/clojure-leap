@@ -1,5 +1,6 @@
 (ns clojure-leap.frame
   (:require [clojure-leap.hand :as l-hand]
+            [clojure-leap.pointable :as l-pointable]
             [clojure-leap.vector :as l-vector])
   (:import (com.leapmotion.leap Frame
                                 Pointable PointableList
@@ -61,6 +62,22 @@
     (when (.isValid finger)
       finger)))
 
+(defn ^Finger leftmost-finger [^Frame frame]
+  (when (fingers? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (fingers frame))))
+
+(defn ^Finger rightmost-finger [^Frame frame]
+  (when (fingers? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (fingers frame))))
+
+(defn ^Finger highest-finger [^Frame frame]
+  (when (fingers? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (fingers frame))))
+
+(defn ^Finger lowest-finger [^Frame frame]
+  (when (fingers? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (fingers frame))))
+
 (defn ^ToolList tools [^Frame frame]
   (.tools frame))
 
@@ -76,6 +93,22 @@
     (when (.isValid tool)
       tool)))
 
+(defn ^Tool leftmost-tool [^Frame frame]
+  (when (tools? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (tools frame))))
+
+(defn ^Tool rightmost-tool [^Frame frame]
+  (when (tools? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (tools frame))))
+
+(defn ^Tool highest-tool [^Frame frame]
+  (when (tools? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (tools frame))))
+
+(defn ^Tool lowest-tool [^Frame frame]
+  (when (tools? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (tools frame))))
+
 (defn ^PointableList pointables [^Frame frame]
   (.pointables frame))
 
@@ -90,6 +123,22 @@
   (let [pointable (.pointable frame pointable-id)]
     (when (.isValid pointable)
       pointable)))
+
+(defn ^Pointable leftmost-pointable [^Frame frame]
+  (when (pointables? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/x) (pointables frame))))
+
+(defn ^Pointable rightmost-pointable [^Frame frame]
+  (when (pointables? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/x) (pointables frame))))
+
+(defn ^Pointable highest-pointable [^Frame frame]
+  (when (pointables? frame)
+    (apply max-key #(-> % l-pointable/tip-position l-vector/y) (pointables frame))))
+
+(defn ^Pointable lowest-pointable [^Frame frame]
+  (when (pointables? frame)
+    (apply min-key #(-> % l-pointable/tip-position l-vector/y) (pointables frame))))
 
 (defn valid? [^Frame frame]
   (.isValid frame))
