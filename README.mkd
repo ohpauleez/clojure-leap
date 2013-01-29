@@ -20,15 +20,8 @@ Not necessarily in this order
  * Full docs on everything - API, Marg, Tutorial, walk-through the examples
  * API Docs are clear about what is core Leap API and what is added/extra in the Clojure interface
  * Wiki docs on performance and ideal usage patterns
- * Extend `hand` to include `leftmost-hand` and `rightmost-hand`
- * Extend `tool` and `pointable` with `leftmost-*` and `rightmost-*` as well
  * A way to average/smooth the mouse movement so it isn't so bouncey/glitchy
  * Write a gesture composition function or macro
- * Add gestures for:
-   * going-down/power-off
-   * fist bump/punch
-   * slide (karate-chop hand moving along X Axis) (slide-left, slide-right)
-   * finger-click
  * Finish up Vector functions
  * create a `movements` ns, in it, create a palm-controlled `joystick`
 
