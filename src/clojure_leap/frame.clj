@@ -14,6 +14,9 @@
 (defn hands? [^Frame frame]
   (not (.empty (.hands frame))))
 
+(defn single-hand? [^Frame frame]
+  (= 1 (.count (.hands frame))))
+
 (defn ^Hand leftmost-hand [^Frame frame]
   (when (hands? frame)
     (apply min-key #(-> % l-hand/palm-position l-vector/x) (hands frame))))
