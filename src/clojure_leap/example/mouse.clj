@@ -1,7 +1,6 @@
 (ns clojure-leap.example.mouse
   (:require [clojure-leap.core :as leap]
             [clojure-leap.screen :as l-screen]
-            [clojure-leap.vector :as v :refer [x y]]
             [clojure-leap.gestures :as gestures])
   (:import (java.awt Robot)))
 

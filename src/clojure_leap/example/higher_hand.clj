@@ -1,6 +1,5 @@
 (ns clojure-leap.example.higher-hand
-  (:require [clojure-leap.core :as leap]
-            [clojure-leap.vector :as v :refer [y]]))
+  (:require [clojure-leap.core :as leap]))
 
 (defn process-frame [frame]
   (println
