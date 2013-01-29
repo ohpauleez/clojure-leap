@@ -50,10 +50,10 @@
   These X, Y coordinates can be used to map to mouse movement, for example."
   [^ScreenList screen-list ^Pointable pointable]
   (let [screen (.closestScreenHit screen-list pointable)
-        screen-dim (l-screen/dimensions screen)
-        position (l-screen/intersect screen pointable)]
-    {:x (* (x position) (:width-px screen-dim))
-     :y (* (- 1 (y position)) (:height-px screen-dim))}))
+        screen-dim (dimensions screen)
+        position (.intersect screen pointable true)]
+    {:x (* (.getX position) (:width-px screen-dim))
+     :y (* (- 1 (.getY position)) (:height-px screen-dim))}))
 
 (defn valid? [^Screen screen]
   (.isValid screen))
