@@ -21,11 +21,8 @@
         toggle-switch? (gestures/finger-flash? (leap/frames controller gestures/*window*))
         _ (toggle! toggle-switch? frame)]
     (when-let [pointable (and @active? (leap/pointables? frame) (first (leap/pointables frame)))]
-      (let [screen (l-screen/closest-screen screens pointable)
-            screen-dim (l-screen/dimensions screen)
-            position (l-screen/intersect screen pointable)]
-        (.mouseMove robot (* (x position) (:width-px screen-dim))
-                          (* (- 1 (y position)) (:height-px screen-dim)))))))
+      (let [position-map (l-screen/intersect-position screens pointable)]
+        (.mouseMove robot (:x position-map)(:y position-map))))))
 
 (defn -main [& args]
   (let [listener (leap/listener :frame #(process-frame (:controller %) (:frame %) (:screens %))

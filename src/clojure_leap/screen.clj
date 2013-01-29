@@ -2,7 +2,8 @@
   (:refer-clojure :exclude [empty?])
   (:import (com.leapmotion.leap Screen
                                 ScreenList
-                                Pointable)))
+                                Pointable
+                                Vector)))
 
 ;; Screen List
 ;;;;;;;;;;;;;;;
@@ -32,7 +33,7 @@
 (defn normal [^Screen screen]
   (.normal screen))
 
-(defn intersect
+(defn ^Vector intersect
   ([^Screen screen ^Pointable pointable]
    (intersect screen pointable true))
   ([^Screen screen ^Pointable pointable normalize]
@@ -42,6 +43,17 @@
    (.intersect screen pointable normalize))
   ([^Screen screen ^Pointable pointable normalize clamp-ratio]
    (.intersect screen pointable normalize clamp-ratio)))
+
+(defn intersect-position
+  "This gives the X,Y coordinates on the closest screen which
+  pointable intersects, as a map {:x :y}
+  These X, Y coordinates can be used to map to mouse movement, for example."
+  [^ScreenList screen-list ^Pointable pointable]
+  (let [screen (.closestScreenHit screen-list pointable)
+        screen-dim (l-screen/dimensions screen)
+        position (l-screen/intersect screen pointable)]
+    {:x (* (x position) (:width-px screen-dim))
+     :y (* (- 1 (y position)) (:height-px screen-dim))}))
 
 (defn valid? [^Screen screen]
   (.isValid screen))
