@@ -4,7 +4,8 @@
                                 Finger FingerList
                                 Tool ToolList
                                 Pointable PointableList
-                                Frame)))
+                                Frame
+                                Vector)))
 
 ;; Hand List
 ;;;;;;;;;;;;;
@@ -73,8 +74,16 @@
     (when (.isValid pointable)
       pointable)))
 
-(defn direction [^Hand hand]
+(defn fist?
+  "Are we detecting a possible fist? - a hand with no fingers/tools/pointables"
+  [^Hand hand]
+  (.empty (.pointables hand)))
+
+(defn ^Vector direction [^Hand hand]
   (.direction hand))
+
+(defn ^Vector palm-position [^Hand hand]
+  (.palmPosition hand))
 
 (defn palm [^Hand hand]
   {:normal (.palmNormal hand) ; The vector outward/orthog
@@ -93,4 +102,7 @@
 
 (defn scale-since [^Hand hand ^Frame frame]
   (.scaleFactor hand frame))
+
+(defn equal? [^Hand hand ^Hand other]
+  (.equals hand other))
 

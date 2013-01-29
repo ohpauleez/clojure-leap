@@ -71,8 +71,10 @@
 (def rightmost-hand l-frame/rightmost-hand)
 (def highest-hand l-frame/highest-hand)
 (def lowest-hand l-frame/lowest-hand)
-(defn same-hand? [^Hand hand-1 ^Hand hand-2]
-  (= (.id hand-1) (.id hand-2)))
+
+(def same-hand? l-hand/equal?)
+(def same-screen? l-screen/equal?)
+(def same-pointable? l-pointable/equal?)
 
 ;; NOTE: The following use protocols
 ;; To get raw performance (and type hints) please use the specific functions

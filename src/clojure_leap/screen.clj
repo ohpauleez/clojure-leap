@@ -58,3 +58,6 @@
 (defn valid? [^Screen screen]
   (.isValid screen))
 
+(defn equal? [^Screen screen ^Screen other]
+  (.equals screen other))
+

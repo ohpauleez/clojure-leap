@@ -11,6 +11,9 @@
 (defn valid? [^Pointable pointable]
   (.isValid pointable))
 
+(defn equal? [^Pointable pointable ^Pointable other]
+  (.equals pointable other))
+
 (defn finger? [^Pointable pointable]
   (.isFinger pointable))
 
