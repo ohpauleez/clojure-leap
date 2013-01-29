@@ -66,6 +66,10 @@
   ([^Frame frame hand-id]
    (l-frame/hand frame hand-id)))
 
+(def single-hand? l-frame/single-hand?)
+(def leftmost-hand l-frame/leftmost-hand)
+(def rightmost-hand l-frame/rightmost-hand)
+
 ;; NOTE: The following use protocols
 ;; To get raw performance (and type hints) please use the specific functions
 ;; directly in the namespaces.
