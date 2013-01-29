@@ -1,5 +1,7 @@
 (ns clojure-leap.hand
   (:refer-clojure :exclude [empty? count])
+  (:require [clojure-leap.pointable :as l-pointable]
+            [clojure-leap.vector :as l-vector])
   (:import (com.leapmotion.leap Hand HandList
                                 Finger FingerList
                                 Tool ToolList
