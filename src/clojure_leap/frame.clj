@@ -1,4 +1,6 @@
 (ns clojure-leap.frame
+  (:require [clojure-leap.hand :as l-hand]
+            [clojure-leap.vector :as l-vector])
   (:import (com.leapmotion.leap Frame
                                 Pointable PointableList
                                 Hand HandList
@@ -12,13 +14,20 @@
 (defn hands? [^Frame frame]
   (not (.empty (.hands frame))))
 
+(defn ^Hand leftmost-hand [^Frame frame]
+  (when (hands? frame)
+    (apply min-key #(-> % l-hand/palm-position l-vector/x) (hands frame))))
+
+(defn ^Hand rightmost-hand [^Frame frame]
+  (when (hands? frame)
+    (apply max-key #(-> % l-hand/palm-position l-vector/x) (hands frame))))
+
 (defn ^Hand raw-hand [^Frame frame hand-id]
   (.hand frame hand-id))
 
 (defn hand [^Frame frame hand-id]
   {:pre [(integer? hand-id)]}
-  (let [hand (.hand frame hand-id)
-        _ (println "Frame's hand" hand)]
+  (let [hand (.hand frame hand-id)]
     (when (.isValid hand)
       hand)))
 
