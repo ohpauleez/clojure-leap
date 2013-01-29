@@ -87,6 +87,10 @@
 (def fingers l-protocols/fingers)
 (def raw-finger l-protocols/raw-finger)
 (def finger l-protocols/finger)
+(def leftmost-finger l-protocols/leftmost-finger)
+(def rightmost-finger l-protocols/rightmost-finger)
+(def highest-finger l-protocols/highest-finger)
+(def lowest-finger l-protocols/lowest-finger)
 
 ;; Tools
 ;;;;;;;;;
@@ -94,6 +98,10 @@
 (def tools l-protocols/tools)
 (def raw-tool l-protocols/raw-tool)
 (def tool l-protocols/tool)
+(def leftmost-tool l-protocols/leftmost-tool)
+(def rightmost-tool l-protocols/rightmost-tool)
+(def highest-tool l-protocols/highest-tool)
+(def lowest-tool l-protocols/lowest-tool)
 
 ;; Pointables
 ;;;;;;;;;;;;;;
@@ -101,6 +109,10 @@
 (def pointables l-protocols/pointables)
 (def raw-pointable l-protocols/raw-pointable)
 (def pointable l-protocols/pointable)
+(def leftmost-pointable l-protocols/leftmost-pointable)
+(def rightmost-pointable l-protocols/rightmost-pointable)
+(def highest-pointable l-protocols/highest-pointable)
+(def lowest-pointable l-protocols/lowest-pointable)
 
 ;; Leap *Lists
 ;;;;;;;;;;;;;;;
