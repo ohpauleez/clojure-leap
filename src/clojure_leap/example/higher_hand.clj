@@ -6,13 +6,11 @@
   "Here is a more imperative, chaining-if that is more informative"
   [frame]
   (println
-    (if (leap/hands? frame)
-      (if (leap/single-hand? frame)
-        "  -- There is only one hand --  "
-        (if (leap/same-hand? (leap/highest-hand frame) (leap/rightmost-hand frame))
-          "     The RIGHT HAND is higher -->>"
-          "<<-- The LEFT HAND is higher "))
-      "No hands are present")))
+    (cond
+      (not (leap/hands? frame)) "No hands are present"
+      (leap/single-hand? frame) "  -- There is only one hand --  "
+      (leap/same-hand? (leap/highest-hand frame) (leap/rightmost-hand frame)) "     The RIGHT HAND is higher -->>"
+      :else "<<-- The LEFT HAND is higher ")))
 
 (defn -main [& args]
   (let [listener (leap/listener :frame #(process-frame (:frame %))
