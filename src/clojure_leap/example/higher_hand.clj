@@ -2,9 +2,7 @@
   (:require [clojure-leap.core :as leap]
             [clojure-leap.vector :as v :refer [y]]))
 
-(defn process-frame
-  "Here is a more imperative, chaining-if that is more informative"
-  [frame]
+(defn process-frame [frame]
   (println
     (cond
       (not (leap/hands? frame)) "No hands are present"
