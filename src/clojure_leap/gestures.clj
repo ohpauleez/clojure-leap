@@ -1,10 +1,16 @@
 (ns clojure-leap.gestures
-  (:require [clojure-leap.core :as leap]))
+  (:require [clojure-leap.core :as leap]
+            [clojure-leap.frame :as l-frame :refer [hand-kw]]
+            [clojure-leap.hand :as l-hand :refer [fist?]]
+            [clojure-leap.gestures.fundamental :as fundamental]))
 
 ;; This is a preliminary library for basic gestures that
 ;; developers would commonly want to detect.
 ;;
 ;; THIS IS ALPHA AND COULD BE REMOVED IN THE FUTURE
+
+;; All gesture predicates return a map on `true` (ie: if they are detected)
+;; that offers more descriptive information about the gesture.
 
 (def ^:dynamic *window* 10)
 (def ^:dynamic *threshold* (* 1.5 *window*))
@@ -17,17 +23,14 @@
   This is essentially the motion of flashing your fingers out,
   and then making a fist"
   [frame-vec]
-  (let [latest-frame (first frame-vec)
-        past-frames (nnext frame-vec) ;; We skip the second frame to filter our noise
-        ;one-max-hand? (= 1 (apply max (map #(leap/count (leap/hands %)) past-frames)))
-        one-max-hand? (every? leap/single-hand? past-frames)
-        flashed-fingers? (>= (apply max (map #(leap/count (leap/fingers %)) past-frames))
-                           4)
-        currently-no-fingers? (not (leap/fingers? latest-frame))]
-    (and one-max-hand? flashed-fingers? currently-no-fingers?)))
+  (fundamental/gesture frame-vec :finger-flash
+    [fundamental/max-one-hand? fundamental/flashed-fingers? fundamental/currently-no-fingers?]))
 
 (defn punch?
-  "Can we detect a user punching? - a fist moving perpendicular to the palm direction"
+  "Can we detect a user punching? - a fist moving perpendicular to the palm direction
+  We need to be at a frame with 0-1 fingers,
+  where the the hand's summed Z motion is nearly 0
+  But the max Z velocity is 'much higher' than 0"
   [frame-vec])
 
 (defn bop?
