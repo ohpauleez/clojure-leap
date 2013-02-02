@@ -26,6 +26,16 @@
   (when (hands? frame)
     (apply max-key #(-> % l-hand/palm-position l-vector/x) (hands frame))))
 
+(defn hand-kw
+  ([^Frame frame]
+   (hand-kw frame (first (.hands frame))))
+  ([^Frame frame ^Hand hand]
+   (cond
+     (or (nil? hand) (not (hands? frame))) nil
+     (single-hand? frame) :single
+     (l-hand/equal? hand (rightmost-hand frame)) :right
+     :else :left)))
+
 (defn ^Hand highest-hand [^Frame frame]
   (when (hands? frame)
     (apply max-key #(-> % l-hand/palm-position l-vector/y) (hands frame))))
