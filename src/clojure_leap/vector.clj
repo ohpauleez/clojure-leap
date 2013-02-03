@@ -10,6 +10,7 @@
 (defn angle-to [^Vector from ^Vector to]
   (.angleTo from to))
 (def angle-between angle-to)
+(def angle angle-to)
 
 (defn distance-to [^Vector from ^Vector to]
   (.distanceTo from to))
@@ -72,9 +73,18 @@
   ([^Vector v ^Vector x] (.plus v x))
   ([^Vector v ^Vector x & more] (reduce + (.plus v x) more)))
 
-;(defn -) .minus
+(defn -
+  "Vector substraction"
+  ([^Vector v] (.opposite v))
+  ([^Vector v ^Vector x] (.minus v x))
+  ([^Vector v ^Vector x & more] (reduce - (.minus v x) more)))
 
-;(defn *) .times
+(defn *
+  "Vector scalar multiplication"
+  ([] 1)
+  ([^Vector v] v)
+  ([^Vector v scalar] (.times v scalar))
+  ([^Vector v scalar & more] (reduce * (.times v scalar) more)))
 
 (defn divide
   ([^Vector v] v)
