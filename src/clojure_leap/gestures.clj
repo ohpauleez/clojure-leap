@@ -24,14 +24,17 @@
   and then making a fist"
   [frame-vec]
   (fundamental/gesture frame-vec :finger-flash
-    [fundamental/max-one-hand? fundamental/flashed-fingers? fundamental/currently-no-fingers?]))
+    [fundamental/max-one-hand? fundamental/flashed-fingers?
+     fundamental/currently-no-fingers? fundamental/no-hand-movement?]))
 
 (defn punch?
   "Can we detect a user punching? - a fist moving perpendicular to the palm direction
   We need to be at a frame with 0-1 fingers,
   where the the hand's summed Z motion is nearly 0
   But the max Z velocity is 'much higher' than 0"
-  [frame-vec])
+  [frame-vec]
+  (fundamental/gesture frame-vec :punch
+    [fundamental/fist? fundamental/moving-forward? fundamental/returned-to-position?]))
 
 (defn bop?
   "Can we detect a user bopping their hand - like the motion for 'rock' in rock-paper-scissors"

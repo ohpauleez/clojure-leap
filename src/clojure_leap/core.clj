@@ -119,6 +119,11 @@
 (def empty? l-protocols/empty?)
 (def count l-protocols/count)
 
+;; Movement Helpers
+;;;;;;;;;;;;;;;;;;;;
+(defn movement?
+  ([t])
+  ([t direction-kw]))
 
 ;; Listeners and Controllers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

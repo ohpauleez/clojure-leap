@@ -48,13 +48,18 @@
 
 (defn gesture [frame-coll gesture-kw gesture-fns]
   (let [frame-map (if (map? frame-coll) frame-coll (frame-vec->frame-map frame-coll))
-        predicates-vec (vec (map #(wrap-gesture % frame-map) gesture-fns))]
+        predicates-vec (mapv #(wrap-gesture % frame-map) gesture-fns)]
     (and (every? identity predicates-vec)
          {:gesture gesture-kw
           :part predicates-vec})))
 
 (defn gesture-fn [gesture-kw & gesture-fns]
   #(gesture % gesture-kw gesture-fns))
+
+;; The Fundamental Threader
+;; ========================
+(defn frame-map->
+  "Thread the frame-map information between the gesture functions"[& gesture-fns])
 
 ;; The Fundamental Gestures
 ;; =========================
@@ -83,4 +88,19 @@
 (defn currently-no-fingers? [frame-map]
   (and (not (leap/fingers? (:latest-frame frame-map)))
        (fundamental-map :currently-no-fingers frame-map)))
+
+(defn no-hand-movement? [frame-map]
+  (and (map #(leap/movement? (leap/hands %)) (:past-frames frame-map))
+       (fundamental-map :no-hand-movement frame-map)))
+
+(defn moving-forward? [])
+(defn moving-backward? [])
+(defn moving-left? [])
+(defn moving-right? [])
+(defn moving-up? [])
+(defn moving-down? [])
+
+(defn returned-to-position? [])
+
+(defn fist? [])
 
