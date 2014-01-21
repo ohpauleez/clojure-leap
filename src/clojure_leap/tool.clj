@@ -9,7 +9,7 @@
   (.count tool-list))
 
 (defn empty? [^ToolList tool-list]
-  (.empty tool-list))
+  (.isEmpty tool-list))
 
 ;; Tool
 ;;;;;;;;;;;;;;;
