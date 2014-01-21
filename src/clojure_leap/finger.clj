@@ -9,7 +9,7 @@
   (.count finger-list))
 
 (defn empty? [^FingerList finger-list]
-  (.empty finger-list))
+  (.isEmpty finger-list))
 
 ;; Finger
 ;;;;;;;;;;;;;;;

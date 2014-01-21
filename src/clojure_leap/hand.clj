@@ -16,7 +16,7 @@
   (.count hand-list))
 
 (defn empty? [^HandList hand-list]
-  (.empty hand-list))
+  (.isEmpty hand-list))
 
 
 ;; Hand
@@ -35,7 +35,7 @@
 (defn fingers?
   "Are there any fingers detected for a given Hand"
   [^Hand hand]
-  (not (.empty (.fingers hand))))
+  (not (.isEmpty (.fingers hand))))
 
 (defn ^Finger raw-finger [^Hand hand finger-id]
   (.finger hand finger-id))
@@ -66,7 +66,7 @@
   (.tools hand))
 
 (defn tools? [^Hand hand]
-  (not (.empty (.tools hand))))
+  (not (.isEmpty (.tools hand))))
 
 (defn ^Tool raw-tool [^Hand hand tool-id]
   (.tool hand tool-id))
@@ -97,7 +97,7 @@
   (.pointables hand))
 
 (defn pointables? [^Hand hand]
-  (not (.empty (.pointables hand))))
+  (not (.isEmpty (.pointables hand))))
 
 (defn ^Pointable raw-pointable [^Hand hand pointable-id]
   (.pointable hand pointable-id))
@@ -127,7 +127,7 @@
 (defn fist?
   "Are we detecting a possible fist? - a hand with no fingers/tools/pointables"
   [^Hand hand]
-  (.empty (.pointables hand)))
+  (.isEmpty (.pointables hand)))
 
 (defn ^Vector direction [^Hand hand]
   (.direction hand))

@@ -13,7 +13,7 @@
   (.hands frame))
  
 (defn hands? [^Frame frame]
-  (not (.empty (.hands frame))))
+  (not (.isEmpty (.hands frame))))
 
 (defn single-hand? [^Frame frame]
   (= 1 (.count (.hands frame))))
@@ -61,7 +61,7 @@
 (defn fingers?
   "Are there any fingers detected for a given Frame"
   [^Frame frame]
-  (not (.empty (.fingers frame))))
+  (not (.isEmpty (.fingers frame))))
 
 (defn ^Finger raw-finger [^Frame frame finger-id]
   (.finger frame finger-id))
@@ -92,7 +92,7 @@
   (.tools frame))
 
 (defn tools? [^Frame frame]
-  (not (.empty (.tools frame))))
+  (not (.isEmpty (.tools frame))))
 
 (defn ^Tool raw-tool [^Frame frame tool-id]
   (.tool frame tool-id))
@@ -123,7 +123,7 @@
   (.pointables frame))
 
 (defn pointables? [^Frame frame]
-  (not (.empty (.pointables frame))))
+  (not (.isEmpty (.pointables frame))))
 
 (defn ^Pointable raw-pointable [^Frame frame pointable-id]
   (.pointable frame pointable-id))
